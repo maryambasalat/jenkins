@@ -21,10 +21,10 @@ pipeline {
         }
     }
     post {
-        always {
+    always {
             //echo 'This block always runs.'
         }
-        failure {
+    failure {
             //echo 'This block runs only on failure.'
         }
     }
