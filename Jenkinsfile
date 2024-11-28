@@ -1,42 +1,30 @@
-flag = true
 pipeline {
     agent any
-        tools{
-            maven "Maven"
-        }
+    parameters {
+        // These are types of parameters
+        string(name: 'VERSION', defaultValue: '', description: 'Version to deploy on prod')
+        choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: '')
+        booleanParam(name: 'executeTests', defaultValue: true, description: '')
+    }
     environment {
+        // Variables defined here can be used by any stage
         NEW_VERSION = '1.3.0'
     }
     stages {
-        stage('Build') {
+        stage('build') {
             steps {
-                echo 'Building..'
-                echo "Building version ${NEW_VERSION}"
-                sh "nvm install"
+                echo 'Building Project'
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
+        stage('test') {
             when {
                 expression {
-                    flag == false
+                    params.executeTests
                 }
             }
             steps {
-                echo 'Deploying....'
+                echo 'Testing Project'
             }
-        }
-    }
-    post {
-        always {
-            echo 'This block always runs.'
-        }
-        failure {
-            echo 'This block runs only on failure.'
         }
     }
 }
