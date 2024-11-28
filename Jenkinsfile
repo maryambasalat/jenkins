@@ -20,4 +20,11 @@ echo 'Deploying....'
 }
 }
 }
+
+post {
+always {
+}
+failure{
+}
+}
 }
