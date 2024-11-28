@@ -1,7 +1,7 @@
-flag= true
+flag = true
 pipeline {
     agent any
-    environment{
+    environment {
         NEW_VERSION = '1.3.0'
     }
     stages {
@@ -19,22 +19,22 @@ pipeline {
             }
         }
         stage('Deploy') {
-            steps {
-                when{
-                    expression{
-                        flag==false
-                    }
+            when { // The 'when' block should be at the stage level
+                expression {
+                    flag == false
                 }
+            }
+            steps {
                 echo 'Deploying....'
                 // Here you can define commands for your deployment
             }
         }
     }
     post {
-    always {
+        always {
             echo 'This block always runs.'
         }
-    failure {
+        failure {
             echo 'This block runs only on failure.'
         }
     }
