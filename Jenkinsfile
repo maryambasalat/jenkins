@@ -8,25 +8,22 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                // Here you can define commands for your build
-                echo "Building version $(NEW_VERSION)"
+                echo "Building version ${NEW_VERSION}"
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing..'
-                // Here you can define commands for your tests
             }
         }
         stage('Deploy') {
-            when { // The 'when' block should be at the stage level
+            when {
                 expression {
                     flag == false
                 }
             }
             steps {
                 echo 'Deploying....'
-                // Here you can define commands for your deployment
             }
         }
     }
